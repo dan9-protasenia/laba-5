@@ -1,0 +1,63 @@
+#include <locale.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+    setlocale(LC_ALL, "");
+
+    int sum = 0, count = 0;
+    float avg;
+
+    int** array = (int**)malloc(5 * sizeof(int*));
+    for (int i = 0; i < 6; i++)
+    {
+        array[i] = (int*)malloc(6 * sizeof(int));
+    }
+
+    printf("Заполните матрицу:\n");
+
+    for (int i = 0; i < 6; i++)
+    {
+        for (int j = 0; j < 5; j++)
+        {
+            printf("A[%d][%d] = ", i, j);
+            scanf_s("%d", &array[i][j]);
+
+        }
+    }
+
+    // Вывод матрицы
+    for (int i = 0; i < 6; i++)
+    {
+        for (int j = 0; j < 5; j++)
+        {
+            printf("%3d ", array[i][j]);
+        }
+        printf("\n");
+    }
+    //Подсчет среднего арифметического элементов каждого столбца
+    for (int j = 0; j < 5; j++)
+    {
+        for (int i = 0; i < 6; i++)
+        {
+            if (array[i][j] > 0)
+            {
+                sum += array[i][j];
+                count++;
+            }
+        }
+        avg = (float)sum / count;
+        sum = 0;
+        count = 0;
+        printf("Среднее арифметическое элементов %d столбца = %.2f\n", j + 1, avg);
+    }
+
+    //Очистка памяти
+    for (int i = 0; i < 6; i++)
+    {
+        free(array[i]);
+    }
+    free(array);
+    return 0;
+}
